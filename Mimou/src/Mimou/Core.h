@@ -13,3 +13,10 @@
 #error Mimou only support Windows!
 
 #endif
+
+#define BIT(x) (1<<x)
+
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <functional>
