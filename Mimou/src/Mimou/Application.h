@@ -2,6 +2,9 @@
 
 #include "Core.h"
 
+// define a mimou application, all client
+// extend this app
+
 namespace Mimou {
 
 	class MIMOU_API Application
