@@ -7,6 +7,12 @@
     <Filter Include="Mimou\Events">
       <UniqueIdentifier>{90F3DCC4-7C56-6C69-25DC-A41F111E38EC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Mimou.h" />
@@ -34,6 +40,13 @@
     <ClInclude Include="src\Mimou\Log.h">
       <Filter>Mimou</Filter>
     </ClInclude>
+    <ClInclude Include="src\Mimou\Window.h">
+      <Filter>Mimou</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mmpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Mimou\Application.cpp">
@@ -42,5 +55,9 @@
     <ClCompile Include="src\Mimou\Log.cpp">
       <Filter>Mimou</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mmpch.cpp" />
   </ItemGroup>
 </Project>

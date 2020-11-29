@@ -1,3 +1,6 @@
 [submodule "Mimou/vendor/spdlog"]
 	path = Mimou/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Mimou/vendor/GLFW"]
+	path = Mimou/vendor/GLFW
+	url = https://github.com/TheCherno/GLFW

@@ -9,6 +9,14 @@ workspace "Mimou"
 	
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+
+IncludeDir = {}
+IncludeDir["GLFW"] = "Mimou/vendor/GLFW/Include"
+
+-- This include the lua file in the GLFW
+include "Mimou/vendor/GLFW"
+
 project "Mimou"
 	location "Mimou"
 	kind "SharedLib"
@@ -17,6 +25,9 @@ project "Mimou"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "mmpch.h"
+	pchsource "Mimou/src/mmpch.cpp"
+
 	files {
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
@@ -24,7 +35,13 @@ project "Mimou"
 
 	includedirs {
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links {
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -34,7 +51,8 @@ project "Mimou"
 
 		defines {
 			"MM_PLATFORM_WINDOWS",
-			"MM_BUILD_DLL"
+			"MM_BUILD_DLL",
+			"MM_ENABLE_ASSERTS"
 		}
 
 		postbuildcommands {

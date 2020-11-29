@@ -14,9 +14,12 @@
 
 #endif
 
-#define BIT(x) (1<<x)
+#ifdef MM_ENABLE_ASSERTS
+#define MM_CLIENT_ASSERT(x, ...) {if(!(x)) {MM_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
+#define MM_CORE_ASSERT(x, ...) {if(!(x)) {MM_CORE_ERROR("Assertion Failed: {0}",__VA_ARGS__); __debugbreak();}}
+#else
+#define MM_CLIENT_ASSERT(x, ...)
+#define MM_CORE_ASSERT(x, ...)
+#endif
 
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <functional>
+#define BIT(x) (1<<x)

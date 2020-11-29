@@ -2,6 +2,7 @@
 
 // #include "I:/GameEngine/learning/Mimou0/Mimou/Mimou/src/Mimou/Core.h"
 #include "Mimou/Core.h"
+#include "mmpch.h"
 
 namespace Mimou {
 
@@ -78,6 +79,7 @@ namespace Mimou {
 		Event& m_Event;
 	};
 
+	// used for logging
 	inline std::ostream& operator<<(std::ostream& os, const Event& e) {
 		return os << e.ToString();
 	}
