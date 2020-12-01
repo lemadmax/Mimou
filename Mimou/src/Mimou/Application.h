@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Events/Event.h"
+#include "Events/ApplicationEvent.h"
 #include "Window.h"
 
 // define a mimou application, all client
@@ -17,7 +18,11 @@ namespace Mimou {
 
 		void Run();
 
+		void OnEvent(Event& e);
+
 	private:
+		bool OnWindowClosed(WindowCloseEvent& e);
+
 		//unique_ptr is a smart pointer that owns and manages 
 		// another object through a pointer and disposes of 
 		// that object when the unique_ptr goes out of scope.
