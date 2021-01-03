@@ -49,4 +49,19 @@ namespace Mimou {
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
+	class MIMOU_API KeyTypedEvent : public KeyEvent {
+	public:
+		// note that : operation can also call a function
+		KeyTypedEvent(int keycode)
+			: KeyEvent(keycode) {}
+
+		std::string ToString() const override {
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
+
 }

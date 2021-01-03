@@ -4,6 +4,7 @@
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
 #include "Window.h"
+#include "LayerStack.h"
 
 // define a mimou application, all client
 // extend this app
@@ -20,6 +21,14 @@ namespace Mimou {
 
 		void OnEvent(Event& e);
 
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
+
+		// inline function is a function that is expanded in line
+		// when it is called. Inline function may increase efficiency
+		// if it is small
+		inline static Application& Get() { return *s_Instance; }
+		inline Window& GetWindow() { return *m_Window; }
 	private:
 		bool OnWindowClosed(WindowCloseEvent& e);
 
@@ -28,6 +37,9 @@ namespace Mimou {
 		// that object when the unique_ptr goes out of scope.
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
+		LayerStack m_LayerStack;
+	private:
+		static Application* s_Instance;
 	};
 
 	// To be defined in CLIENT

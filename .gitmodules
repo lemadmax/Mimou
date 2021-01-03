@@ -4,3 +4,9 @@
 [submodule "Mimou/vendor/GLFW"]
 	path = Mimou/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
+[submodule "Mimou/vender/imgui"]
+	path = Mimou/vender/imgui
+	url = https://github.com/TheCherno/imgui
+[submodule "Mimou/vendor/imgui"]
+	path = Mimou/vendor/imgui
+	url = https://github.com/TheCherno/imgui

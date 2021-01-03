@@ -18,6 +18,7 @@ namespace Mimou {
 		AppRender,
 		KeyPressed,
 		KeyReleased,
+		KeyTyped,
 		MouseButtonPressed,
 		MouseButtonReleased,
 		MouseMoved,
@@ -54,12 +55,12 @@ namespace Mimou {
 		inline bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;
 		}
-	protected:
 		// If we don't want to process this event
 		// further, set this to true.
-		bool m_Handled = false;
+		bool Handled = false;
 	};
 
+	// Assign the event to the proper event handler!!!
 	class EventDispatcher {
 		template<typename T>
 		using EventFn = std::function<bool(T&)>;
@@ -69,7 +70,7 @@ namespace Mimou {
 		template<typename T>
 		bool Dispatch(EventFn<T> func) {
 			if (m_Event.GetEventType() == T::GetStaticType()) {
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			else return false;

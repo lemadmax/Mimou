@@ -12,10 +12,14 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "Mimou/vendor/GLFW/Include"
+IncludeDir["GLFW"] = "Mimou/vendor/GLFW/include"
+IncludeDir["glad"] = "Mimou/vendor/glad/include"
+IncludeDir["imgui"] = "Mimou/vendor/imgui"
 
 -- This include the lua file in the GLFW
 include "Mimou/vendor/GLFW"
+include "Mimou/vendor/glad"
+include "Mimou/vendor/imgui"
 
 project "Mimou"
 	location "Mimou"
@@ -36,11 +40,15 @@ project "Mimou"
 	includedirs {
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.imgui}"
 	}
 
 	links {
 		"GLFW",
+		"glad",
+		"imgui",
 		"opengl32.lib"
 	}
 
@@ -52,7 +60,8 @@ project "Mimou"
 		defines {
 			"MM_PLATFORM_WINDOWS",
 			"MM_BUILD_DLL",
-			"MM_ENABLE_ASSERTS"
+			"MM_ENABLE_ASSERTS",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands {
@@ -61,14 +70,17 @@ project "Mimou"
 	
 	filter "configurations:Debug"
 		defines "MM_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "MM_RELEASE"
+		buildoptions "/MD"
 		symbols "On"
 
 	filter "configurations:DIST"
 		defines "MM_DIST"
+		buildoptions "/MD"
 		symbols "On"
 
 project "Sandbox"
@@ -104,12 +116,15 @@ project "Sandbox"
 	
 	filter "configurations:Debug"
 		defines "MM_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "MM_RELEASE"
+		buildoptions "/MD"
 		symbols "On"
 
 	filter "configurations:DIST"
 		defines "MM_DIST"
+		buildoptions "/MD"
 		symbols "On"
