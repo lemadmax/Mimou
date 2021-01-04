@@ -6,7 +6,8 @@ workspace "Mimou"
 		"Release",
 		"Dist"
 	}
-	
+	startproject "Sandbox"
+
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
@@ -20,6 +21,8 @@ IncludeDir["imgui"] = "Mimou/vendor/imgui"
 include "Mimou/vendor/GLFW"
 include "Mimou/vendor/glad"
 include "Mimou/vendor/imgui"
+
+
 
 project "Mimou"
 	location "Mimou"

@@ -6,8 +6,11 @@
 #include "Log.h"
 #include "Mimou/Events/MouseEvent.h"
 #include "Mimou/Events/ApplicationEvent.h"
+#include <GLFW/glfw3.h>
 
 #include <glad/glad.h>
+
+#include "Input.h"
 
 namespace Mimou {
 
@@ -51,6 +54,16 @@ namespace Mimou {
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_LayerStack) 
 				layer->OnUpdate();
+			auto [x, y] = Input::GetMousePos();
+			bool A = Input::IsKeyPressed(GLFW_KEY_A);
+			bool ML = Input::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT);
+			MM_CORE_TRACE("{0}, {1}", x, y);
+			if (A) {
+				MM_CORE_WARN("A is pressed!!!");
+			}
+			if (ML) {
+				MM_CORE_WARN("Left mouse button is pressed!!!");
+			}
 			m_Window->OnUpdate();
 		}
 	}
