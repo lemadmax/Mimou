@@ -58,17 +58,17 @@
     <ClInclude Include="src\Mimou\Window.h">
       <Filter>Mimou</Filter>
     </ClInclude>
+    <ClInclude Include="src\mmpch.h" />
+    <ClInclude Include="src\Mimou\Input.h" />
+    <ClInclude Include="src\Mimou\KeyCodes.h" />
+    <ClInclude Include="src\Mimou\MouseButtonCodes.h" />
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\mmpch.h" />
-    <ClInclude Include="src\Mimou\Input.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Mimou\KeyCodes.h" />
-    <ClInclude Include="src\Mimou\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Mimou\Application.cpp">
@@ -86,13 +86,13 @@
     <ClCompile Include="src\Mimou\Log.cpp">
       <Filter>Mimou</Filter>
     </ClCompile>
+    <ClCompile Include="src\mmpch.cpp" />
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\mmpch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
