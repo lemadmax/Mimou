@@ -67,6 +67,8 @@
     <ClInclude Include="src\mmpch.h" />
     <ClInclude Include="src\Mimou\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Mimou\KeyCodes.h" />
+    <ClInclude Include="src\Mimou\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Mimou\Application.cpp">

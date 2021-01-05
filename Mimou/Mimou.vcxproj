@@ -154,9 +154,11 @@
     <ClInclude Include="src\Mimou\Events\MouseEvent.h" />
     <ClInclude Include="src\Mimou\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Mimou\Input.h" />
+    <ClInclude Include="src\Mimou\KeyCodes.h" />
     <ClInclude Include="src\Mimou\Layer.h" />
     <ClInclude Include="src\Mimou\LayerStack.h" />
     <ClInclude Include="src\Mimou\Log.h" />
+    <ClInclude Include="src\Mimou\MouseButtonCodes.h" />
     <ClInclude Include="src\Mimou\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />

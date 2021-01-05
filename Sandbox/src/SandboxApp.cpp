@@ -7,11 +7,21 @@ public:
 	}
 
 	void OnUpdate() override {
-		MM_CLIENT_INFO("ExampleLayer::Update");
+		//MM_CLIENT_INFO("ExampleLayer::Update");
+		auto [x, y] = Mimou::Input::GetMousePos();
+		bool A = Mimou::Input::IsKeyPressed(MM_KEY_A);
+		bool ML = Mimou::Input::IsMouseButtonPressed(MM_MOUSE_BUTTON_LEFT);
+		//MM_CORE_TRACE("{0}, {1}", x, y);
+		if (A) {
+			MM_CORE_WARN("A is pressed!!!");
+		}
+		if (ML) {
+			MM_CORE_WARN("Left mouse button is pressed!!!");
+		}
 	}
 
 	void OnEvent(Mimou::Event& event) override {
-		MM_CLIENT_TRACE("{0}", event);
+		//MM_CLIENT_TRACE("{0}", event);
 	}
 };
 

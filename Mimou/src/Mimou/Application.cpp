@@ -1,7 +1,5 @@
 #include "mmpch.h"
 
-
-
 #include "Application.h"
 #include "Log.h"
 #include "Mimou/Events/MouseEvent.h"
@@ -32,7 +30,7 @@ namespace Mimou {
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
-		MM_CORE_TRACE("{0}", e);
+		//MM_CORE_TRACE("{0}", e);
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
 			(*--it)->OnEvent(e);
 			if (e.Handled) break;
@@ -40,30 +38,21 @@ namespace Mimou {
 	}
 
 	void Application::Run() {
-		MouseMovedEvent e(3.23, 1.33);
-		WindowResizeEvent e1(1232, 332);
-		if (!e.IsInCategory(EventCategoryApplication)) {
-			MM_CLIENT_ERROR("not an application event");
-		}
-		if (e.IsInCategory(EventCategoryMouse)) {
-			MM_CLIENT_TRACE(e);
-		}
-		MM_CLIENT_TRACE(e1);
+		//MouseMovedEvent e(3.23, 1.33);
+		//WindowResizeEvent e1(1232, 332);
+		//if (!e.IsInCategory(EventCategoryApplication)) {
+		//	MM_CLIENT_ERROR("not an application event");
+		//}
+		//if (e.IsInCategory(EventCategoryMouse)) {
+		//	MM_CLIENT_TRACE(e);
+		//}
+		//MM_CLIENT_TRACE(e1);
 		while (m_Running) {
 			glClearColor(1, 1, 0, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_LayerStack) 
 				layer->OnUpdate();
-			auto [x, y] = Input::GetMousePos();
-			bool A = Input::IsKeyPressed(GLFW_KEY_A);
-			bool ML = Input::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT);
-			MM_CORE_TRACE("{0}, {1}", x, y);
-			if (A) {
-				MM_CORE_WARN("A is pressed!!!");
-			}
-			if (ML) {
-				MM_CORE_WARN("Left mouse button is pressed!!!");
-			}
+			
 			m_Window->OnUpdate();
 		}
 	}

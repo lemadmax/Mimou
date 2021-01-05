@@ -8,6 +8,9 @@
 #include "Mimou/Application.h"
 #include "Mimou/Log.h"
 #include "Mimou/Layer.h"
+#include "Mimou/Input.h"
+#include "Mimou/KeyCodes.h"
+#include "Mimou/MouseButtonCodes.h"
 #include "Mimou/ImGui/ImGuiLayer.h"
 
 using namespace std;
