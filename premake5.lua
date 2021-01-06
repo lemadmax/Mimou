@@ -16,12 +16,12 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Mimou/vendor/GLFW/include"
 IncludeDir["glad"] = "Mimou/vendor/glad/include"
 IncludeDir["imgui"] = "Mimou/vendor/imgui"
+IncludeDir["glm"] = "Mimou/vendor/glm"
 
 -- This include the lua file in the GLFW
 include "Mimou/vendor/GLFW"
 include "Mimou/vendor/glad"
 include "Mimou/vendor/imgui"
-
 
 
 project "Mimou"
@@ -37,7 +37,9 @@ project "Mimou"
 
 	files {
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs {
@@ -45,7 +47,8 @@ project "Mimou"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
-		"%{IncludeDir.imgui}"
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links {
@@ -101,7 +104,8 @@ project "Sandbox"
 
 	includedirs {
 		"Mimou/vendor/spdlog/include",
-		"Mimou/src"
+		"Mimou/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links {

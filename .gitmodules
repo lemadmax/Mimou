@@ -10,3 +10,6 @@
 [submodule "Mimou/vendor/imgui"]
 	path = Mimou/vendor/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Mimou/vendor/glm"]
+	path = Mimou/vendor/glm
+	url = https://github.com/g-truc/glm

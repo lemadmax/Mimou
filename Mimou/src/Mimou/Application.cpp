@@ -10,6 +10,8 @@
 
 #include "Input.h"
 
+#include "glm/glm.hpp"
+
 namespace Mimou {
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)

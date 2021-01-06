@@ -1,5 +1,6 @@
 #include<Mimou.h>
 
+
 class ExampleLayer : public Mimou::Layer {
 public:
 	ExampleLayer() : Layer("Example") {
