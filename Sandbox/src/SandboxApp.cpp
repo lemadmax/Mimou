@@ -1,6 +1,5 @@
 #include<Mimou.h>
 
-
 class ExampleLayer : public Mimou::Layer {
 public:
 	ExampleLayer() : Layer("Example") {
@@ -19,6 +18,12 @@ public:
 		if (ML) {
 			MM_CORE_WARN("Left mouse button is pressed!!!");
 		}
+	}
+
+	virtual void OnImGuiRender() override {
+		//ImGui::Begin("Test");
+		//ImGui::Text("Hello World!");
+		//ImGui::End();
 	}
 
 	void OnEvent(Mimou::Event& event) override {

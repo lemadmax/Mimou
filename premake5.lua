@@ -105,11 +105,13 @@ project "Sandbox"
 	includedirs {
 		"Mimou/vendor/spdlog/include",
 		"Mimou/src",
+		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}"
 	}
 
 	links {
-		"Mimou"
+		"Mimou",
+		"imgui"
 	}
 
 	filter "system:windows"

@@ -160,7 +160,6 @@
     <ClInclude Include="src\Mimou\Log.h" />
     <ClInclude Include="src\Mimou\MouseButtonCodes.h" />
     <ClInclude Include="src\Mimou\Window.h" />
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\mmpch.h" />
@@ -580,11 +579,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Mimou\Application.cpp" />
+    <ClCompile Include="src\Mimou\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Mimou\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Mimou\Layer.cpp" />
     <ClCompile Include="src\Mimou\LayerStack.cpp" />
     <ClCompile Include="src\Mimou\Log.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\mmpch.cpp">

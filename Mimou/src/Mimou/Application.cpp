@@ -26,6 +26,8 @@ namespace Mimou {
 		// set eventcallbackfn of m_window to be OnEvent(event)
 		// then when a event happen, data.eventcallbackfn is OnEvent(event)
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+		
+		m_ImGuiLayer = std::make_unique<ImGuiLayer>();
 	}
 	Application::~Application() {}
 
@@ -54,7 +56,12 @@ namespace Mimou {
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_LayerStack) 
 				layer->OnUpdate();
-			
+
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
+
 			m_Window->OnUpdate();
 		}
 	}

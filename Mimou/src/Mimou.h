@@ -13,6 +13,8 @@
 #include "Mimou/MouseButtonCodes.h"
 #include "Mimou/ImGui/ImGuiLayer.h"
 
+#include "imgui.h"
+
 using namespace std;
 
 // --Entry Pointe
