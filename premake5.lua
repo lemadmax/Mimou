@@ -26,8 +26,11 @@ include "Mimou/vendor/imgui"
 
 project "Mimou"
 	location "Mimou"
-	kind "SharedLib"
+--	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -40,6 +43,10 @@ project "Mimou"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs {
@@ -59,8 +66,6 @@ project "Mimou"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines {
@@ -70,29 +75,31 @@ project "Mimou"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands {
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-		}
+--		postbuildcommands {
+--			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+--		}
 	
 	filter "configurations:Debug"
 		defines "MM_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		buildoptions "/MTd"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "MM_RELEASE"
 		buildoptions "/MD"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:DIST"
 		defines "MM_DIST"
 		buildoptions "/MD"
-		symbols "On"
+		symbols "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -110,13 +117,10 @@ project "Sandbox"
 	}
 
 	links {
-		"Mimou",
-		"imgui"
+		"Mimou"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines {
@@ -125,15 +129,15 @@ project "Sandbox"
 	
 	filter "configurations:Debug"
 		defines "MM_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		buildoptions "/MTd"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "MM_RELEASE"
 		buildoptions "/MD"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:DIST"
 		defines "MM_DIST"
 		buildoptions "/MD"
-		symbols "On"
+		symbols "on"

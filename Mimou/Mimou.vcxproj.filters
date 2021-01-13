@@ -13,8 +13,14 @@
     <Filter Include="src\Mimou\ImGui">
       <UniqueIdentifier>{EDAA6973-5936-D737-6247-5A2CCE513338}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Mimou\Renderer">
+      <UniqueIdentifier>{8946C7C4-752A-881A-DE8A-826DCA8D729C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -87,8 +93,14 @@
     <ClInclude Include="src\Mimou\MouseButtonCodes.h">
       <Filter>src\Mimou</Filter>
     </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\GraphicsContext.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Mimou\Window.h">
       <Filter>src\Mimou</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
@@ -1357,6 +1369,9 @@
     </ClCompile>
     <ClCompile Include="src\Mimou\Log.cpp">
       <Filter>src\Mimou</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
