@@ -7,6 +7,9 @@
 #include "LayerStack.h"
 #include "ImGui/ImGuiLayer.h"
 
+#include "Mimou/Renderer/Shader.h"
+#include "Mimou/Renderer/Buffer.h"
+
 // define a mimou application, all client
 // extend this app
 
@@ -40,6 +43,13 @@ namespace Mimou {
 		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		unsigned int m_VertexArray;
+		// different with shared_ptr, unique_ptr only allow
+		// one pointer points to an object
+		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 	private:
 		static Application* s_Instance;
 	};
