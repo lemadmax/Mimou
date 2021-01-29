@@ -9,6 +9,7 @@
 
 #include "Mimou/Renderer/Shader.h"
 #include "Mimou/Renderer/Buffer.h"
+#include "Mimou/Renderer/VertexArray.h"
 
 // define a mimou application, all client
 // extend this app
@@ -44,12 +45,14 @@ namespace Mimou {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray;
 		// different with shared_ptr, unique_ptr only allow
 		// one pointer points to an object
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+
+		std::shared_ptr<Shader> square_Shader;
+		std::shared_ptr<VertexArray> square_VertexArray;
+		
 	private:
 		static Application* s_Instance;
 	};

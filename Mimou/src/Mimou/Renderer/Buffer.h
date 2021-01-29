@@ -71,6 +71,7 @@ namespace Mimou {
 			CalculateOffsetsAndStride();
 		}	
 
+		// add begin and end so that we can use for(auto m : M)
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
