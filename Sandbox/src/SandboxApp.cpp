@@ -45,6 +45,7 @@ public:
 	}
 };
 
+// global variables initialized before the main function
 Mimou::Application* Mimou::CreateApplication() {
 	return new Sandbox();
 }
