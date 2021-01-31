@@ -1,16 +1,27 @@
 #pragma once
 
-namespace Mimou {
+#include "RenderCommand.h"
+#include "OrthographicCamera.h"
+#include "Shader.h"
 
-	enum class RendererAPI {
-		None = 0, OpenGL = 1
-	};
+#include <glm/glm.hpp>
+
+namespace Mimou {
 
 	class Renderer {
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
+		static void BeginScene(OrthographicCamera& camera);
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& shader);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:
-		static RendererAPI s_RendererAPI;
+		struct SceneData {
+			glm::mat4 ViewProjectionMatrix;
+		};
+
+		static SceneData* m_SceneData;
 	};
 
 }

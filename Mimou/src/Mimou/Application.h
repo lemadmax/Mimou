@@ -45,13 +45,7 @@ namespace Mimou {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		// different with shared_ptr, unique_ptr only allow
-		// one pointer points to an object
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> square_Shader;
-		std::shared_ptr<VertexArray> square_VertexArray;
+		
 		
 	private:
 		static Application* s_Instance;
