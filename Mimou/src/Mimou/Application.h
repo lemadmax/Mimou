@@ -7,10 +7,6 @@
 #include "LayerStack.h"
 #include "ImGui/ImGuiLayer.h"
 
-#include "Mimou/Renderer/Shader.h"
-#include "Mimou/Renderer/Buffer.h"
-#include "Mimou/Renderer/VertexArray.h"
-
 // define a mimou application, all client
 // extend this app
 
@@ -45,7 +41,7 @@ namespace Mimou {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		
+		float m_LastFrameTime = 0.0f;
 		
 	private:
 		static Application* s_Instance;

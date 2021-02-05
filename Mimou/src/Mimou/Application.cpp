@@ -29,6 +29,7 @@ namespace Mimou {
 		// set eventcallbackfn of m_window to be OnEvent(event)
 		// then when a event happen, data.eventcallbackfn is OnEvent(event)
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+		m_Window->SetVSync(1);
 		
 		m_ImGuiLayer = std::make_unique<ImGuiLayer>();
 
@@ -49,9 +50,12 @@ namespace Mimou {
 
 	void Application::Run() {
 		while (m_Running) {
+			float time = (float)glfwGetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 
 			for (Layer* layer : m_LayerStack) 
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)

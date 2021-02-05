@@ -12,23 +12,20 @@
 #include<unordered_map>
 #include<unordered_set>
 
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include "imgui.h"
+#include <Platform/OpenGL/OpenGLShader.h>
 
 class ExampleLayer : public Mimou::Layer {
 
-private:
-	// different with shared_ptr, unique_ptr only allow
-		// one pointer points to an object
-	std::shared_ptr<Mimou::Shader> m_Shader;
-	std::shared_ptr<Mimou::VertexArray> m_VertexArray;
-
-	std::shared_ptr<Mimou::Shader> square_Shader;
-	std::shared_ptr<Mimou::VertexArray> square_VertexArray;
-
-	Mimou::OrthographicCamera m_Camera;
-
 public:
-	ExampleLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f) {
+	ExampleLayer()
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f),
+		m_SquarePosition(glm::vec3(0.0f)),
+		m_SquareColor(glm::vec3(1.0f))
+	{
 
 		// Create and bind vertics and indics
 		// Vertex Array
@@ -40,7 +37,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f
 		};
 		// Vertex Buffer
-		std::shared_ptr<Mimou::VertexBuffer> vertexBuffer;
+		Mimou::Ref<Mimou::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Mimou::VertexBuffer::Create(vertices, sizeof(vertices)));
 		Mimou::BufferLayout layout = {
 			{ "a_Posistion", Mimou::ShaderDataType::Float3 },
@@ -53,7 +50,7 @@ public:
 		uint32_t indices[3] = {
 			0, 1, 2
 		};
-		std::shared_ptr<Mimou::IndexBuffer> indexBuffer;
+		Mimou::Ref<Mimou::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Mimou::IndexBuffer::Create(indices, 3));
 		m_VertexArray->AddIndexBuffer(indexBuffer);
 		// Shader (vertex shader, fragment shader)
@@ -66,13 +63,14 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec4 v_Color;
 
 			void main()
 			{
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 
 		)";
@@ -91,13 +89,13 @@ public:
 
 		)";
 
-		m_Shader.reset(new Mimou::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Mimou::Shader::Create(vertexSrc, fragmentSrc));
 
 		float Svertices[4 * 3] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		uint32_t Sindices[6] = {
@@ -105,8 +103,8 @@ public:
 		};
 
 		square_VertexArray.reset(Mimou::VertexArray::Create());
-		std::shared_ptr<Mimou::VertexBuffer> squareBuffer;
-		std::shared_ptr<Mimou::IndexBuffer> squareIndexB;
+		Mimou::Ref<Mimou::VertexBuffer> squareBuffer;
+		Mimou::Ref<Mimou::IndexBuffer> squareIndexB;
 		squareBuffer.reset(Mimou::VertexBuffer::Create(Svertices, sizeof(Svertices)));
 		squareIndexB.reset(Mimou::IndexBuffer::Create(Sindices, sizeof(Sindices) / sizeof(uint32_t)));
 		Mimou::BufferLayout Slayout = {
@@ -122,13 +120,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 			
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 
 		)";
@@ -137,84 +136,161 @@ public:
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
+
+			uniform vec3 u_Color;
 			
 			in vec3 v_Position;
 
 			void main()
 			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = vec4(u_Color, 1.0);
 			}
 
 		)";
-		square_Shader.reset(new Mimou::Shader(SvertexSrc, SfragmentSrc));
+		square_Shader.reset(Mimou::Shader::Create(SvertexSrc, SfragmentSrc));
 
 	}
 
-	void OnUpdate() override {
-		//MM_CLIENT_INFO("ExampleLayer::Update");
-		auto [x, y] = Mimou::Input::GetMousePos();
-		bool A = Mimou::Input::IsKeyPressed(MM_KEY_A);
-		bool ML = Mimou::Input::IsMouseButtonPressed(MM_MOUSE_BUTTON_LEFT);
-		//MM_CORE_TRACE("{0}, {1}", x, y);
-		if (A) {
-			MM_CORE_WARN("A is pressed!!!");
+	void OnUpdate(Mimou::Timestep ts) override {
+		////MM_CLIENT_INFO("ExampleLayer::Update");
+		//auto [x, y] = Mimou::Input::GetMousePos();
+		//bool A = Mimou::Input::IsKeyPressed(MM_KEY_A);
+		//bool ML = Mimou::Input::IsMouseButtonPressed(MM_MOUSE_BUTTON_LEFT);
+		////MM_CORE_TRACE("{0}, {1}", x, y);
+		//if (A) {
+		//	MM_CORE_WARN("A is pressed!!!");
+		//}
+		//if (ML) {
+		//	MM_CORE_WARN("Left mouse button is pressed!!!");
+		//}
+
+		// this way the movement will be more smooth
+		// scince it update per frame, the speed depends
+		// on the frame rate;
+
+		if (Mimou::Input::IsKeyPressed(MM_KEY_A)) {
+			m_CameraPosition.x += m_CameraSpeed * ts;
 		}
-		if (ML) {
-			MM_CORE_WARN("Left mouse button is pressed!!!");
+		if (Mimou::Input::IsKeyPressed(MM_KEY_D)) {
+			m_CameraPosition.x -= m_CameraSpeed * ts;
 		}
+		if (Mimou::Input::IsKeyPressed(MM_KEY_W)) {
+			m_CameraPosition.y -= m_CameraSpeed * ts;
+		}
+		if (Mimou::Input::IsKeyPressed(MM_KEY_S)) {
+			m_CameraPosition.y += m_CameraSpeed * ts;
+		}
+		if (Mimou::Input::IsKeyPressed(MM_KEY_Q)) {
+			m_Camera.SetRotation(m_Camera.GetRotation() - m_CameraRotationS * ts);
+		}
+		if (Mimou::Input::IsKeyPressed(MM_KEY_E)) {
+			m_Camera.SetRotation(m_Camera.GetRotation() + m_CameraRotationS * ts);
+		}
+
+		if (Mimou::Input::IsKeyPressed(MM_KEY_LEFT)) {
+			m_SquarePosition.x -= m_SquareSpeed * ts;
+		}
+		if (Mimou::Input::IsKeyPressed(MM_KEY_RIGHT)) {
+			m_SquarePosition.x += m_SquareSpeed * ts;
+		}
+		if (Mimou::Input::IsKeyPressed(MM_KEY_UP)) {
+			m_SquarePosition.y += m_SquareSpeed * ts;
+		}
+		if (Mimou::Input::IsKeyPressed(MM_KEY_DOWN)) {
+			m_SquarePosition.y -= m_SquareSpeed * ts;
+		}
+		//if (Mimou::Input::IsKeyPressed(MM_KEY_N)) {
+		//	m_Camera.SetRotation(m_Camera.GetRotation() - m_CameraRotationS * ts);
+		//}
+		//if (Mimou::Input::IsKeyPressed(MM_KEY_M)) {
+		//	m_Camera.SetRotation(m_Camera.GetRotation() + m_CameraRotationS * ts);
+		//}
+
+		m_Camera.SetPosition(m_CameraPosition);
 
 		Mimou::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Mimou::RenderCommand::Clear();
 
 		Mimou::Renderer::BeginScene(m_Camera);
 
-		Mimou::Renderer::Submit(square_VertexArray, square_Shader);
-		Mimou::Renderer::Submit(m_VertexArray, m_Shader);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		std::dynamic_pointer_cast<Mimou::OpenGLShader>(square_Shader)->Bind();
+		std::dynamic_pointer_cast<Mimou::OpenGLShader>(square_Shader)->UploadUniformFloat3("u_Color", m_SquareColor);
+
+		for (int i = -5; i <= 5; i++) {
+			for (int j = -5; j <= 5; j++) {
+				glm::vec3 pos = m_SquarePosition + glm::vec3({ i * 0.11, j * 0.11, 0 });
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				Mimou::Renderer::Submit(square_VertexArray, square_Shader, transform);
+			}
+		}
+		Mimou::Renderer::Submit(m_VertexArray, m_Shader);
 		Mimou::Renderer::EndScene();
 
 	}
 
 	virtual void OnImGuiRender() override {
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World!");
+		ImGui::Begin("square color");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
 		ImGui::End();
 	}
 
 	void OnEvent(Mimou::Event& event) override {
-		Mimou::EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<Mimou::KeyPressedEvent>(MM_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
+		//Mimou::EventDispatcher dispatcher(event);
+		//dispatcher.Dispatch<Mimou::KeyPressedEvent>(MM_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
 	}
 
-	bool OnKeyPressedEvent(Mimou::KeyPressedEvent& event) {
-		int key = event.GetKeyCode();
-		switch(key) {
-		case MM_KEY_E:
-			m_Camera.SetRotation(m_Camera.GetRotation() + 0.1f);
-			MM_CORE_INFO("Key e is pressed");
-			break;
-		case MM_KEY_Q:
-			m_Camera.SetRotation(m_Camera.GetRotation() - 0.1f);
-			break;
-		case MM_KEY_A:
-			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3({0.1, 0, 0}));
-			break;
-		case MM_KEY_D:
-			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3({-0.1, 0, 0}));
-			break;
-		case MM_KEY_W:
-			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3({0, 0.1, 0}));
-			break;
-		case MM_KEY_S:
-			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3({0, -0.1, 0}));
-			break;
-		case MM_KEY_Z:
-			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3({ 0, 0, -0.1}));
-			break;
-		}
+	//bool OnKeyPressedEvent(Mimou::KeyPressedEvent& event) {
+	//	int key = event.GetKeyCode();
+	//	switch(key) {
+	//	case MM_KEY_E:
+	//		m_Camera.SetRotation(m_Camera.GetRotation() + m_CameraRotationS);
+	//		MM_CORE_INFO("Key e is pressed");
+	//		break;
+	//	case MM_KEY_Q:
+	//		m_Camera.SetRotation(m_Camera.GetRotation() - m_CameraRotationS);
+	//		break;
+	//	case MM_KEY_A:
+	//		m_CameraPosition.x += m_CameraSpeed;
+	//		break;
+	//	case MM_KEY_D:
+	//		m_CameraPosition.x -= m_CameraSpeed;
+	//		break;
+	//	case MM_KEY_W:
+	//		m_CameraPosition.y -= m_CameraSpeed;
+	//		break;
+	//	case MM_KEY_S:
+	//		m_CameraPosition.y += m_CameraSpeed;
+	//		break;
+	//	case MM_KEY_Z:
+	//		m_CameraPosition.z -= m_CameraSpeed;
+	//		break;
+	//	}
+	//	m_Camera.SetPosition(m_CameraPosition);
+	//	return true;
+	//}
 
-		return true;
-	}
+private:
+	// different with shared_ptr, unique_ptr only allow
+		// one pointer points to an object
+	Mimou::Ref<Mimou::Shader> m_Shader;
+	Mimou::Ref<Mimou::VertexArray> m_VertexArray;
+
+	Mimou::Ref<Mimou::Shader> square_Shader;
+	Mimou::Ref<Mimou::VertexArray> square_VertexArray;
+
+	Mimou::OrthographicCamera m_Camera;
+	glm::vec3 m_CameraPosition;
+	float m_CameraSpeed = 2.0f;
+	float m_CameraRotationS = 2.0f;
+
+	glm::vec3 m_SquarePosition;
+	float m_SquareSpeed = 2.0f;
+	float m_SquareRotationS = 2.0f;
+
+	glm::vec3 m_SquareColor;
+
 };
 
 class Sandbox : public Mimou::Application {

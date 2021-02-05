@@ -2,6 +2,7 @@
 
 #include "Mimou/Core.h"
 #include "Mimou/Events/Event.h"
+#include "Mimou/Core/TimeStep.h"
 
 namespace Mimou {
 
@@ -13,7 +14,7 @@ namespace Mimou {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

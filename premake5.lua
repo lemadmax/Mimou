@@ -113,7 +113,8 @@ project "Sandbox"
 		"Mimou/vendor/spdlog/include",
 		"Mimou/src",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.glad}"
 	}
 
 	links {

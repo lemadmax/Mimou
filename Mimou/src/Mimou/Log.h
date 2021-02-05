@@ -17,10 +17,10 @@ namespace Mimou {
 		// ownership of an object through a pointer. Several 
 		// shared_ptr objects may own the same object.
 
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() {
+		inline static Ref<spdlog::logger>& GetCoreLogger() {
 			return s_CoreLogger;
 		}
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() {
+		inline static Ref<spdlog::logger>& GetClientLogger() {
 			return s_ClientLogger;
 		}
 	private:

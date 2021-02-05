@@ -7,6 +7,9 @@
     <Filter Include="src\Mimou">
       <UniqueIdentifier>{83DF68B3-EF49-1D2A-3888-CECFA431FB7E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Mimou\Core">
+      <UniqueIdentifier>{BB2DD977-A7FB-CC7D-908F-3DA47CFCA8E2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Mimou\Events">
       <UniqueIdentifier>{079AFDD7-F392-1C2A-1CC5-01AF081DFC35}</UniqueIdentifier>
     </Filter>
@@ -57,6 +60,9 @@
     <ClInclude Include="src\Mimou\Core.h">
       <Filter>src\Mimou</Filter>
     </ClInclude>
+    <ClInclude Include="src\Mimou\Core\TimeStep.h">
+      <Filter>src\Mimou\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Mimou\EntryPoint.h">
       <Filter>src\Mimou</Filter>
     </ClInclude>
@@ -93,13 +99,46 @@
     <ClInclude Include="src\Mimou\MouseButtonCodes.h">
       <Filter>src\Mimou</Filter>
     </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\Buffer.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Mimou\Renderer\GraphicsContext.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\OrthographicCamera.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\RenderCommand.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\Renderer.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\RendererAPI.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\Shader.h">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mimou\Renderer\VertexArray.h">
       <Filter>src\Mimou\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Mimou\Window.h">
       <Filter>src\Mimou</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
@@ -1350,16 +1389,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Mimou\Renderer\Shader.h" />
-    <ClInclude Include="src\Mimou\Renderer\Buffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Mimou\Renderer\Renderer.h" />
-    <ClInclude Include="src\Mimou\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Mimou\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Mimou\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Mimou\Renderer\OrthographicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Mimou\Application.cpp">
@@ -1380,7 +1409,40 @@
     <ClCompile Include="src\Mimou\Log.cpp">
       <Filter>src\Mimou</Filter>
     </ClCompile>
+    <ClCompile Include="src\Mimou\Renderer\Buffer.cpp">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mimou\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mimou\Renderer\RenderCommand.cpp">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mimou\Renderer\Renderer.cpp">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mimou\Renderer\RendererAPI.cpp">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mimou\Renderer\Shader.cpp">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mimou\Renderer\VertexArray.cpp">
+      <Filter>src\Mimou\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
@@ -1392,15 +1454,5 @@
     <ClCompile Include="src\mmpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mimou\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Mimou\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Mimou\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Mimou\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Mimou\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Mimou\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Mimou\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>
