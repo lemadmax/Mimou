@@ -91,11 +91,11 @@ public:
 
 		m_Shader.reset(Mimou::Shader::Create(vertexSrc, fragmentSrc));
 
-		float Svertices[4 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float Svertices[4 * 5] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		uint32_t Sindices[6] = {
@@ -108,7 +108,8 @@ public:
 		squareBuffer.reset(Mimou::VertexBuffer::Create(Svertices, sizeof(Svertices)));
 		squareIndexB.reset(Mimou::IndexBuffer::Create(Sindices, sizeof(Sindices) / sizeof(uint32_t)));
 		Mimou::BufferLayout Slayout = {
-			{"a_Position", Mimou::ShaderDataType::Float3}
+			{"a_Position", Mimou::ShaderDataType::Float3},
+			{"a_TextCoord", Mimou::ShaderDataType::Float2}
 		};
 		squareBuffer->SetLayout(Slayout);
 		square_VertexArray->AddVertexBuffer(squareBuffer);
@@ -149,6 +150,47 @@ public:
 		)";
 		square_Shader.reset(Mimou::Shader::Create(SvertexSrc, SfragmentSrc));
 
+		// texture shader
+		std::string textureSvertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TextCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			
+			out vec2 v_TextCoord;
+
+			void main()
+			{
+				v_TextCoord = a_TextCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+
+		)";
+
+		std::string textureSfragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			
+			in vec2 v_TextCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TextCoord);
+			}
+
+		)";
+		texture_Shader.reset(Mimou::Shader::Create(textureSvertexSrc, textureSfragmentSrc));
+
+		m_Texture = Mimou::Texture2D::Create(std::string("assets/textures/Checkerboard.png"));
+
+		std::dynamic_pointer_cast<Mimou::OpenGLShader>(texture_Shader)->Bind();
+		std::dynamic_pointer_cast<Mimou::OpenGLShader>(texture_Shader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Mimou::Timestep ts) override {
@@ -218,14 +260,16 @@ public:
 		std::dynamic_pointer_cast<Mimou::OpenGLShader>(square_Shader)->Bind();
 		std::dynamic_pointer_cast<Mimou::OpenGLShader>(square_Shader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
-		for (int i = -5; i <= 5; i++) {
-			for (int j = -5; j <= 5; j++) {
+		for (int i = 0; i <= 20; i++) {
+			for (int j = 0; j <= 20; j++) {
 				glm::vec3 pos = m_SquarePosition + glm::vec3({ i * 0.11, j * 0.11, 0 });
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
 				Mimou::Renderer::Submit(square_VertexArray, square_Shader, transform);
 			}
 		}
-		Mimou::Renderer::Submit(m_VertexArray, m_Shader);
+		m_Texture->Bind();
+		Mimou::Renderer::Submit(square_VertexArray, texture_Shader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		//Mimou::Renderer::Submit(m_VertexArray, m_Shader);
 		Mimou::Renderer::EndScene();
 
 	}
@@ -277,8 +321,10 @@ private:
 	Mimou::Ref<Mimou::Shader> m_Shader;
 	Mimou::Ref<Mimou::VertexArray> m_VertexArray;
 
-	Mimou::Ref<Mimou::Shader> square_Shader;
+	Mimou::Ref<Mimou::Shader> square_Shader, texture_Shader;
 	Mimou::Ref<Mimou::VertexArray> square_VertexArray;
+
+	Mimou::Ref<Mimou::Texture2D> m_Texture;
 
 	Mimou::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

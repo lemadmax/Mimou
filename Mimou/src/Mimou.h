@@ -14,6 +14,7 @@
 #include "Mimou/ImGui/ImGuiLayer.h"
 #include "Mimou/Renderer/Renderer.h"
 #include "Mimou/Renderer/Shader.h"
+#include "Mimou/Renderer/Texture.h"
 #include "Mimou/Renderer/OrthographicCamera.h"
 #include "Mimou/Events/Event.h"
 #include "Mimou/Events/KeyEvent.h"

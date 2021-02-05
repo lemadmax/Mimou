@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "Mimou/vendor/GLFW/include"
 IncludeDir["glad"] = "Mimou/vendor/glad/include"
 IncludeDir["imgui"] = "Mimou/vendor/imgui"
 IncludeDir["glm"] = "Mimou/vendor/glm"
+IncludeDir["stb_image"] = "Mimou/vendor/stb_image"
 
 -- This include the lua file in the GLFW
 include "Mimou/vendor/GLFW"
@@ -38,9 +39,12 @@ project "Mimou"
 	pchheader "mmpch.h"
 	pchsource "Mimou/src/mmpch.cpp"
 
+	-- these files will be compiled
 	files {
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -55,7 +59,8 @@ project "Mimou"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links {
@@ -114,7 +119,8 @@ project "Sandbox"
 		"Mimou/src",
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links {
