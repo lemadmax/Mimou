@@ -188,8 +188,10 @@ public:
 		texture_Shader.reset(Mimou::Shader::Create(textureSvertexSrc, textureSfragmentSrc));
 
 		m_Texture = Mimou::Texture2D::Create(std::string("assets/textures/Checkerboard.png"));
+		m_LogoTexture = Mimou::Texture2D::Create(std::string("assets/textures/ChernoLogo.png"));
 
 		std::dynamic_pointer_cast<Mimou::OpenGLShader>(texture_Shader)->Bind();
+		// 0 indicates slot 0.
 		std::dynamic_pointer_cast<Mimou::OpenGLShader>(texture_Shader)->UploadUniformInt("u_Texture", 0);
 	}
 
@@ -269,6 +271,8 @@ public:
 		}
 		m_Texture->Bind();
 		Mimou::Renderer::Submit(square_VertexArray, texture_Shader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		m_LogoTexture->Bind(); 
+		Mimou::Renderer::Submit(square_VertexArray, texture_Shader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		//Mimou::Renderer::Submit(m_VertexArray, m_Shader);
 		Mimou::Renderer::EndScene();
 
@@ -324,7 +328,7 @@ private:
 	Mimou::Ref<Mimou::Shader> square_Shader, texture_Shader;
 	Mimou::Ref<Mimou::VertexArray> square_VertexArray;
 
-	Mimou::Ref<Mimou::Texture2D> m_Texture;
+	Mimou::Ref<Mimou::Texture2D> m_Texture, m_LogoTexture;
 
 	Mimou::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

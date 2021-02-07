@@ -6,6 +6,11 @@ namespace Mimou {
 
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	// make sure that the shader we are using get the right uniforms
 	// : which environment we are using, the camera, the projection matrix
 	// the view matrix, where the camera in the world space, any calculation

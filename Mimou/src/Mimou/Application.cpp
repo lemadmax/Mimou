@@ -31,6 +31,8 @@ namespace Mimou {
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 		m_Window->SetVSync(1);
 		
+		Renderer::Init();
+		
 		m_ImGuiLayer = std::make_unique<ImGuiLayer>();
 
 		
