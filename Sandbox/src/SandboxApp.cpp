@@ -89,7 +89,8 @@ public:
 
 		)";
 
-		m_Shader.reset(Mimou::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Mimou::Shader::Create("TriangleShader", vertexSrc, fragmentSrc);
+
 
 		float Svertices[4 * 5] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -148,44 +149,9 @@ public:
 			}
 
 		)";
-		square_Shader.reset(Mimou::Shader::Create(SvertexSrc, SfragmentSrc));
+		square_Shader = Mimou::Shader::Create("SquareShader", SvertexSrc, SfragmentSrc);
 
-		// texture shader
-		std::string textureSvertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TextCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-			
-			out vec2 v_TextCoord;
-
-			void main()
-			{
-				v_TextCoord = a_TextCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-
-		)";
-
-		std::string textureSfragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-			
-			in vec2 v_TextCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TextCoord);
-			}
-
-		)";
-		texture_Shader.reset(Mimou::Shader::Create(textureSvertexSrc, textureSfragmentSrc));
+		auto texture_Shader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Mimou::Texture2D::Create(std::string("assets/textures/Checkerboard.png"));
 		m_LogoTexture = Mimou::Texture2D::Create(std::string("assets/textures/ChernoLogo.png"));
@@ -269,6 +235,7 @@ public:
 				Mimou::Renderer::Submit(square_VertexArray, square_Shader, transform);
 			}
 		}
+		auto texture_Shader = m_ShaderLibrary.Get("Texture");
 		m_Texture->Bind();
 		Mimou::Renderer::Submit(square_VertexArray, texture_Shader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_LogoTexture->Bind(); 
@@ -322,10 +289,11 @@ public:
 private:
 	// different with shared_ptr, unique_ptr only allow
 		// one pointer points to an object
+	Mimou::ShaderLibrary m_ShaderLibrary;
 	Mimou::Ref<Mimou::Shader> m_Shader;
 	Mimou::Ref<Mimou::VertexArray> m_VertexArray;
 
-	Mimou::Ref<Mimou::Shader> square_Shader, texture_Shader;
+	Mimou::Ref<Mimou::Shader> square_Shader;
 	Mimou::Ref<Mimou::VertexArray> square_VertexArray;
 
 	Mimou::Ref<Mimou::Texture2D> m_Texture, m_LogoTexture;
