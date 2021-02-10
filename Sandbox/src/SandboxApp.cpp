@@ -22,7 +22,7 @@ class ExampleLayer : public Mimou::Layer {
 
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f),
+		: Layer("Example"), m_CameraController(1280.0f/720.0f), 
 		m_SquarePosition(glm::vec3(0.0f)),
 		m_SquareColor(glm::vec3(1.0f))
 	{
@@ -178,24 +178,7 @@ public:
 		// scince it update per frame, the speed depends
 		// on the frame rate;
 
-		if (Mimou::Input::IsKeyPressed(MM_KEY_A)) {
-			m_CameraPosition.x += m_CameraSpeed * ts;
-		}
-		if (Mimou::Input::IsKeyPressed(MM_KEY_D)) {
-			m_CameraPosition.x -= m_CameraSpeed * ts;
-		}
-		if (Mimou::Input::IsKeyPressed(MM_KEY_W)) {
-			m_CameraPosition.y -= m_CameraSpeed * ts;
-		}
-		if (Mimou::Input::IsKeyPressed(MM_KEY_S)) {
-			m_CameraPosition.y += m_CameraSpeed * ts;
-		}
-		if (Mimou::Input::IsKeyPressed(MM_KEY_Q)) {
-			m_Camera.SetRotation(m_Camera.GetRotation() - m_CameraRotationS * ts);
-		}
-		if (Mimou::Input::IsKeyPressed(MM_KEY_E)) {
-			m_Camera.SetRotation(m_Camera.GetRotation() + m_CameraRotationS * ts);
-		}
+		m_CameraController.OnUpdate(ts);
 
 		if (Mimou::Input::IsKeyPressed(MM_KEY_LEFT)) {
 			m_SquarePosition.x -= m_SquareSpeed * ts;
@@ -216,12 +199,12 @@ public:
 		//	m_Camera.SetRotation(m_Camera.GetRotation() + m_CameraRotationS * ts);
 		//}
 
-		m_Camera.SetPosition(m_CameraPosition);
+		
 
 		Mimou::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Mimou::RenderCommand::Clear();
 
-		Mimou::Renderer::BeginScene(m_Camera);
+		Mimou::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -251,9 +234,10 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(Mimou::Event& event) override {
+	void OnEvent(Mimou::Event& e) override {
 		//Mimou::EventDispatcher dispatcher(event);
 		//dispatcher.Dispatch<Mimou::KeyPressedEvent>(MM_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
+		m_CameraController.OnEvent(e);
 	}
 
 	//bool OnKeyPressedEvent(Mimou::KeyPressedEvent& event) {
@@ -298,10 +282,7 @@ private:
 
 	Mimou::Ref<Mimou::Texture2D> m_Texture, m_LogoTexture;
 
-	Mimou::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 2.0f;
-	float m_CameraRotationS = 2.0f;
+	Mimou::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquarePosition;
 	float m_SquareSpeed = 2.0f;
