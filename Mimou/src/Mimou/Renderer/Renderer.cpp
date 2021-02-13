@@ -11,6 +11,11 @@ namespace Mimou {
 		RenderCommand::Init();
 	}
 
+	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+	{
+		RenderCommand::SetViewport(0, 0, width, height);
+	}
+
 	// make sure that the shader we are using get the right uniforms
 	// : which environment we are using, the camera, the projection matrix
 	// the view matrix, where the camera in the world space, any calculation

@@ -32,6 +32,7 @@ namespace Mimou {
 		inline Window& GetWindow() { return *m_Window; }
 	private:
 		bool OnWindowClosed(WindowCloseEvent& e);
+		bool OnWindowResized(WindowResizeEvent& e);
 
 		//unique_ptr is a smart pointer that owns and manages 
 		// another object through a pointer and disposes of 
@@ -39,6 +40,7 @@ namespace Mimou {
 		std::unique_ptr<Window> m_Window;
 		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 
 		float m_LastFrameTime = 0.0f;

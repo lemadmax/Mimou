@@ -42,6 +42,7 @@ namespace Mimou {
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResized));
 		//MM_CORE_TRACE("{0}", e);
 		// each layer listen to this event (guanchazhe)
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
@@ -56,14 +57,14 @@ namespace Mimou {
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack) 
-				layer->OnUpdate(timestep);
-
+			if (!m_Minimized) {
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
-
 			m_Window->OnUpdate();
 		}
 	}
@@ -71,6 +72,20 @@ namespace Mimou {
 	bool Application::OnWindowClosed(WindowCloseEvent& e) {
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResized(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0) {
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+		// use setviewport to resize the buffer so that
+		// the renderer will render the whole window.
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 
 	void Application::PushLayer(Layer* layer) {
