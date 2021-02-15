@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mimou/Window.h"
+#include "Mimou/Core/Window.h"
 #include "Mimou/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 

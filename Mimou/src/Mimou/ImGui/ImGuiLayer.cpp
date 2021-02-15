@@ -5,7 +5,7 @@
 #include "examples/imgui_impl_opengl3.h"
 #include <GLFW/glfw3.h>
 #include "glad/glad.h"
-#include "Mimou/Application.h"
+#include "Mimou/Core/Application.h"
 
 namespace Mimou {
 

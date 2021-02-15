@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mimou/Core.h"
+#include "Mimou/Core/Core.h"
 #include "Mimou/Events/Event.h"
 #include "Mimou/Core/TimeStep.h"
 

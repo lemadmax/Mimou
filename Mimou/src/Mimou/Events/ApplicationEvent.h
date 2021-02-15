@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mimou/Core.h"
+#include "Mimou/Core/Core.h"
 
 #include "Event.h"
 

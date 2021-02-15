@@ -5,12 +5,12 @@
 // For use by Mimou Applications
 
 #include<iostream>
-#include "Mimou/Application.h"
-#include "Mimou/Log.h"
-#include "Mimou/Layer.h"
-#include "Mimou/Input.h"
-#include "Mimou/KeyCodes.h"
-#include "Mimou/MouseButtonCodes.h"
+#include "Mimou/Core/Application.h"
+#include "Mimou/Core/Log.h"
+#include "Mimou/Core/Layer.h"
+#include "Mimou/Core/Input.h"
+#include "Mimou/Core/KeyCodes.h"
+#include "Mimou/Core/MouseButtonCodes.h"
 #include "Mimou/ImGui/ImGuiLayer.h"
 #include "Mimou/Renderer/Renderer.h"
 #include "Mimou/Renderer/Shader.h"
@@ -25,7 +25,3 @@
 #include "imgui.h"
 
 using namespace std;
-
-// --Entry Pointe
-#include "Mimou/EntryPoint.h"
-// --

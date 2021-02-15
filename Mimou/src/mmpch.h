@@ -13,7 +13,7 @@
 #include<unordered_map>
 #include<unordered_set>
 
-#include "Mimou/Log.h"
+#include "Mimou/Core/Log.h"
 
 #ifdef MM_PLATFORM_WINDOWS
 #include <Windows.h>

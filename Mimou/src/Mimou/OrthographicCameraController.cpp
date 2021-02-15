@@ -1,8 +1,8 @@
 #include "mmpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Mimou/Input.h"
-#include "Mimou/KeyCodes.h"
+#include "Mimou/Core/Input.h"
+#include "Mimou/Core/KeyCodes.h"
 
 
 namespace Mimou {

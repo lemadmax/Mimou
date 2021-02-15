@@ -1,7 +1,7 @@
 #include "mmpch.h"
 #include "WindowsInput.h"
 
-#include "Mimou/Application.h"
+#include "Mimou/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Mimou {

@@ -33,7 +33,8 @@ namespace Mimou {
 		
 		Renderer::Init();
 		
-		m_ImGuiLayer = std::make_unique<ImGuiLayer>();
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 
 		
 	}

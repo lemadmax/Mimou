@@ -1,7 +1,7 @@
 #pragma once
 
 // #include "I:/GameEngine/learning/Mimou0/Mimou/Mimou/src/Mimou/Core.h"
-#include "Mimou/Core.h"
+#include "Mimou/Core/Core.h"
 #include "mmpch.h"
 
 namespace Mimou {

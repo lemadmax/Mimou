@@ -1,8 +1,8 @@
 #include "mmpch.h"
 #include "WindowsWindow.h"
 
-#include "Mimou/Core.h"
-#include "Mimou/Log.h"
+#include "Mimou/Core/Core.h"
+#include "Mimou/Core/Log.h"
 #include "Mimou/Events/KeyEvent.h"
 #include "Mimou/Events/ApplicationEvent.h"
 #include "Mimou/Events/MouseEvent.h"

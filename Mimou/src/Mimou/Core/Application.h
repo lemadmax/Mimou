@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Core.h"
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "Mimou/Events/Event.h"
+#include "Mimou/Events/ApplicationEvent.h"
 #include "Window.h"
 #include "LayerStack.h"
-#include "ImGui/ImGuiLayer.h"
+#include "Mimou/ImGui/ImGuiLayer.h"
 
 // define a mimou application, all client
 // extend this app
@@ -38,7 +38,7 @@ namespace Mimou {
 		// another object through a pointer and disposes of 
 		// that object when the unique_ptr goes out of scope.
 		std::unique_ptr<Window> m_Window;
-		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		bool m_Minimized = false;
 		LayerStack m_LayerStack;

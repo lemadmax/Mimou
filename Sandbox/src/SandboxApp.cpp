@@ -12,11 +12,13 @@
 #include<unordered_map>
 #include<unordered_set>
 
+#include "Mimou/Core/EntryPoint.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
 #include "imgui.h"
 #include <Platform/OpenGL/OpenGLShader.h>
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Mimou::Layer {
 
@@ -29,7 +31,7 @@ public:
 
 		// Create and bind vertics and indics
 		// Vertex Array
-		m_VertexArray.reset(Mimou::VertexArray::Create());
+		m_VertexArray = Mimou::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
@@ -38,7 +40,7 @@ public:
 		};
 		// Vertex Buffer
 		Mimou::Ref<Mimou::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Mimou::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Mimou::VertexBuffer::Create(vertices, sizeof(vertices));
 		Mimou::BufferLayout layout = {
 			{ "a_Posistion", Mimou::ShaderDataType::Float3 },
 			{ "a_Color", Mimou::ShaderDataType::Float4 }
@@ -51,7 +53,7 @@ public:
 			0, 1, 2
 		};
 		Mimou::Ref<Mimou::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Mimou::IndexBuffer::Create(indices, 3));
+		indexBuffer = Mimou::IndexBuffer::Create(indices, 3);
 		m_VertexArray->AddIndexBuffer(indexBuffer);
 		// Shader (vertex shader, fragment shader)
 		// define shaders
@@ -103,11 +105,11 @@ public:
 			0, 1, 2, 2, 3, 0
 		};
 
-		square_VertexArray.reset(Mimou::VertexArray::Create());
+		square_VertexArray = Mimou::VertexArray::Create();
 		Mimou::Ref<Mimou::VertexBuffer> squareBuffer;
 		Mimou::Ref<Mimou::IndexBuffer> squareIndexB;
-		squareBuffer.reset(Mimou::VertexBuffer::Create(Svertices, sizeof(Svertices)));
-		squareIndexB.reset(Mimou::IndexBuffer::Create(Sindices, sizeof(Sindices) / sizeof(uint32_t)));
+		squareBuffer = Mimou::VertexBuffer::Create(Svertices, sizeof(Svertices));
+		squareIndexB = Mimou::IndexBuffer::Create(Sindices, sizeof(Sindices) / sizeof(uint32_t));
 		Mimou::BufferLayout Slayout = {
 			{"a_Position", Mimou::ShaderDataType::Float3},
 			{"a_TextCoord", Mimou::ShaderDataType::Float2}
@@ -295,8 +297,8 @@ private:
 class Sandbox : public Mimou::Application {
 public:
 	Sandbox() {
-		PushLayer(new ExampleLayer());
-		PushOverlay(new Mimou::ImGuiLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() {

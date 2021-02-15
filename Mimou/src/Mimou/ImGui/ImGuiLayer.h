@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mimou/Layer.h"
+#include "Mimou/Core/Layer.h"
 
 #include "Mimou/Events/KeyEvent.h"
 #include "Mimou/Events/MouseEvent.h"

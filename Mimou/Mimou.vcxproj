@@ -135,23 +135,24 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Mimou\OrthographicCameraController.h" />
     <ClInclude Include="src\Mimou.h" />
-    <ClInclude Include="src\Mimou\Application.h" />
-    <ClInclude Include="src\Mimou\Core.h" />
+    <ClInclude Include="src\Mimou\Core\Application.h" />
+    <ClInclude Include="src\Mimou\Core\Core.h" />
+    <ClInclude Include="src\Mimou\Core\EntryPoint.h" />
+    <ClInclude Include="src\Mimou\Core\Input.h" />
+    <ClInclude Include="src\Mimou\Core\KeyCodes.h" />
+    <ClInclude Include="src\Mimou\Core\Layer.h" />
+    <ClInclude Include="src\Mimou\Core\LayerStack.h" />
+    <ClInclude Include="src\Mimou\Core\Log.h" />
+    <ClInclude Include="src\Mimou\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Mimou\Core\TimeStep.h" />
-    <ClInclude Include="src\Mimou\EntryPoint.h" />
+    <ClInclude Include="src\Mimou\Core\Window.h" />
     <ClInclude Include="src\Mimou\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Mimou\Events\Event.h" />
     <ClInclude Include="src\Mimou\Events\KeyEvent.h" />
     <ClInclude Include="src\Mimou\Events\MouseEvent.h" />
     <ClInclude Include="src\Mimou\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Mimou\Input.h" />
-    <ClInclude Include="src\Mimou\KeyCodes.h" />
-    <ClInclude Include="src\Mimou\Layer.h" />
-    <ClInclude Include="src\Mimou\LayerStack.h" />
-    <ClInclude Include="src\Mimou\Log.h" />
-    <ClInclude Include="src\Mimou\MouseButtonCodes.h" />
+    <ClInclude Include="src\Mimou\OrthographicCameraController.h" />
     <ClInclude Include="src\Mimou\Renderer\Buffer.h" />
     <ClInclude Include="src\Mimou\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Mimou\Renderer\OrthographicCamera.h" />
@@ -161,7 +162,6 @@
     <ClInclude Include="src\Mimou\Renderer\Shader.h" />
     <ClInclude Include="src\Mimou\Renderer\Texture.h" />
     <ClInclude Include="src\Mimou\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Mimou\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -587,13 +587,13 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Mimou\OrthographicCameraController.cpp" />
-    <ClCompile Include="src\Mimou\Application.cpp" />
+    <ClCompile Include="src\Mimou\Core\Application.cpp" />
+    <ClCompile Include="src\Mimou\Core\Layer.cpp" />
+    <ClCompile Include="src\Mimou\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Mimou\Core\Log.cpp" />
     <ClCompile Include="src\Mimou\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Mimou\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Mimou\Layer.cpp" />
-    <ClCompile Include="src\Mimou\LayerStack.cpp" />
-    <ClCompile Include="src\Mimou\Log.cpp" />
+    <ClCompile Include="src\Mimou\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Mimou\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Mimou\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Mimou\Renderer\RenderCommand.cpp" />

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mimou/Input.h"
+#include "Mimou/Core/Input.h"
 
 namespace Mimou {
 
