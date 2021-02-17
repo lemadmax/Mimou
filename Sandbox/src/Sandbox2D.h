@@ -18,5 +18,7 @@ private:
 	Mimou::Ref<Mimou::Shader> m_Shader;
 	Mimou::OrthographicCameraController m_CameraController;
 
+	Mimou::Ref<Mimou::Texture2D> m_CheckerboardTexture;
+
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };

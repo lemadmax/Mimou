@@ -20,6 +20,8 @@
 #include "Mimou/Events/Event.h"
 #include "Mimou/Events/KeyEvent.h"
 
+#include "Mimou/Renderer/Renderer2D.h"
+
 #include "Mimou/Core/Timestep.h"
 
 #include "imgui.h"
