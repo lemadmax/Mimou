@@ -45,10 +45,17 @@ namespace Mimou {
         ImGui::DestroyContext();
 	}
 
+    void ImGuiLayer::OnEvent(Event& event)
+    {
+        if (!m_EventBlocked) {
+            ImGuiIO& io = ImGui::GetIO();
+            event.Handled |= event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+            event.Handled |= event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+        }
+    }
+
     void ImGuiLayer::OnImGuiRender()
     {
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
 
     }
 

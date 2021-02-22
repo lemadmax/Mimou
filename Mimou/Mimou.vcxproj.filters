@@ -1405,6 +1405,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Mimou\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Mimou\Debug\Instrument.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Mimou\Core\Application.cpp">

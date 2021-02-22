@@ -10,11 +10,19 @@ extern Mimou::Application* Mimou::CreateApplication();
 
 int main(int argc, char** argv) {
 	Mimou::Log::Init();
-	MM_CORE_WARN("Initialized Log!");
-	MM_CLIENT_INFO("Hello Mimou!");
+	
+	MM_PROFILE_BEGIN_SESSION("Startup", "MimouProfile-Startup.json");
 	auto app = Mimou::CreateApplication();
+	MM_PROFILE_END_SESSION();
+	
+	MM_PROFILE_BEGIN_SESSION("Runtime", "MimouProfile-Runtime.json");
 	app->Run();
+	MM_PROFILE_END_SESSION();
+
+	MM_PROFILE_BEGIN_SESSION("Shutdown", "MimouProfile-Shutdown.json");
 	delete app;
+	MM_PROFILE_END_SESSION();
+
 }
 
 #endif

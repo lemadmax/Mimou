@@ -14,6 +14,7 @@
 #include<unordered_set>
 
 #include "Mimou/Core/Log.h"
+#include "Mimou/Debug/Instrument.h"
 
 #ifdef MM_PLATFORM_WINDOWS
 #include <Windows.h>

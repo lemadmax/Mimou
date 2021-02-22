@@ -147,6 +147,7 @@
     <ClInclude Include="src\Mimou\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Mimou\Core\TimeStep.h" />
     <ClInclude Include="src\Mimou\Core\Window.h" />
+    <ClInclude Include="src\Mimou\Debug\Instrument.h" />
     <ClInclude Include="src\Mimou\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Mimou\Events\Event.h" />
     <ClInclude Include="src\Mimou\Events\KeyEvent.h" />
